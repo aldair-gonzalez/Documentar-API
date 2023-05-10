@@ -12,10 +12,10 @@ router.get('/:cid', requireApiSession, requireAuthRoleUserOrPremium, HandleGetOn
 router.put('/:cid', requireApiSession, requireAuthRoleUserOrPremium, HandleUpdate)
 router.delete('/:cid', requireApiSession, requireAuthRoleUserOrPremium, HandleDelete)
 
-router.post('/:cid/purchase', requireApiSession, requireAuthRoleUserOrPremium, HandlePurchase)
-
 router.post('/:cid/product/:pid', requireApiSession, requireAuthRoleUserOrPremium, HandleProductAdd)
 router.put('/:cid/product/:pid', requireApiSession, requireAuthRoleUserOrPremium, HandleProductUpdate)
 router.delete('/:cid/product/:pid', requireApiSession, requireAuthRoleUserOrPremium, HandleProductRemove)
+
+router.post('/:cid/purchase', requireApiSession, requireAuthRoleUserOrPremium, HandlePurchase)
 
 export default router

@@ -4,6 +4,8 @@ import hbs from 'express-handlebars'
 import passport from 'passport'
 import cookieParser from 'cookie-parser'
 import compression from 'express-compression'
+import swaggerJSDoc from 'swagger-jsdoc'
+import swaggerUiExpress from 'swagger-ui-express'
 
 import { __dirname } from './dirname.js'
 import { initPassport } from './config/passport.config.js'
@@ -66,6 +68,30 @@ app.use('/', RoutesRenderSession)
 app.use('/products', RoutesRenderProduct)
 app.use('/carts', RoutesRenderCart)
 app.use('/tickets', RoutesRenderTicket)
+
+const swaggerOptions = {
+  definition: {
+    openApi: '3.0.1',
+    info: {
+      title: 'Documentación de la Api',
+      description: 'APIs que contiene nuestro proyecto'
+    },
+    components: {
+      schemas: {}
+    },
+    example: {
+      language: 'json'
+    }
+  },
+  apis: [
+    './src/docs/**/*.yaml',
+    './src/docs/**/**/*.yaml'
+  ]
+}
+
+const specs = swaggerJSDoc(swaggerOptions)
+
+app.use('/api-docs', swaggerUiExpress.serve, swaggerUiExpress.setup(specs))
 
 app.get('/loggerTest', (req, res) => {
   req.logger.debug('Test - DEBUG')
